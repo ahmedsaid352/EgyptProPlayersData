@@ -49,10 +49,9 @@ def user_input():
     else:
         print("Error you have to inter integer number 1:3\n\n please inter data again \n\n ")
         user_input()
-    collectData()
-
+    collectAndWriteData()
 # collect data
-def collectData():
+def collectAndWriteData():
     browser = webdriver.Chrome(ChromeDriverManager().install())
     browser.maximize_window()
     for i in range(nOfYears):
@@ -64,13 +63,10 @@ def collectData():
         for i in range(len(names)):
             name.append(names[i].text)
             points.append(pts[i].text)
+            print(pts[i].text)
             goals.append(goal[i].text)
             assists.append(assist[i].text)
     browser.quit()
-    writeData()
-
-# write data collected
-def writeData():
     information = {
         'Player Name':name,
         'goals':goals,
@@ -78,7 +74,7 @@ def writeData():
         'Total goals & assists':points,
     }
     df = pd.DataFrame(information)
-    df.to_csv('EgyptProPlayers.csv',index=False)
+    df.to_excel('EgyptProPlayers.xlsx',index=False)
 # call user input
 user_input()
 # end message
