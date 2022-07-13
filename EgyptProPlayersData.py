@@ -56,14 +56,13 @@ def collectAndWriteData():
     browser.maximize_window()
     for i in range(nOfYears):
         browser.get(f"https://www.transfermarkt.com/scorer/topscorer/statistik/2021/plus/0/galerie/0?saison_id={startingYear+i}&art={art}&land_id=2&altersklasse=&ausrichtung=&spielerposition_id=&filter=0&yt0=Show")
-        names = browser.find_elements_by_xpath('//*[@id="yw1"]/table/tbody/tr[*]/td[2]/table/tbody/tr[1]/td[2]/a')
-        pts =   browser.find_elements_by_xpath('//*[@id="yw1"]/table/tbody/tr[*]/td[9]')
-        goal=   browser.find_elements_by_xpath('//*[@id="yw1"]/table/tbody/tr[*]/td[7]')
-        assist= browser.find_elements_by_xpath('//*[@id="yw1"]/table/tbody/tr[*]/td[8]')
+        names = browser.find_elements(By.XPATH, '//*[@id="yw1"]/table/tbody/tr[*]/td[2]/table/tbody/tr[1]/td[2]/a')
+        pts   = browser.find_elements(By.XPATH, '//*[@id="yw1"]/table/tbody/tr[*]/td[9]')
+        goal  = browser.find_elements(By.XPATH, '//*[@id="yw1"]/table/tbody/tr[*]/td[7]')
+        assist= browser.find_elements(By.XPATH, '//*[@id="yw1"]/table/tbody/tr[*]/td[8]')
         for i in range(len(names)):
             name.append(names[i].text)
             points.append(pts[i].text)
-            print(pts[i].text)
             goals.append(goal[i].text)
             assists.append(assist[i].text)
     browser.quit()
