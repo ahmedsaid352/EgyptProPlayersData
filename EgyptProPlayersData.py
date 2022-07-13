@@ -64,9 +64,9 @@ def collectAndWriteData():
         assist= soup.select('#yw1 > table > tbody > tr > td:nth-child(8)')
         for i in range(len(names)):
             name.append(names[i].text)
-            points.append(pts[i].text)
-            goals.append(goal[i].text)
-            assists.append(assist[i].text)
+            points.append(int(pts[i].text))
+            goals.append(int(goal[i].text))
+            assists.append(int(assist[i].text))
     browser.quit()
     information = {
         'Player Name':name,
