@@ -1,4 +1,5 @@
 import csv
+from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.common import keys 
 from webdriver_manager.chrome import ChromeDriverManager
@@ -9,10 +10,8 @@ from selenium.webdriver.common.keys import Keys
 import time
 import pandas as pd
 from time import sleep
-
-# https://www.transfermarkt.com/scorer/topscorer/statistik/2020/plus/0/galerie/0?saison_id=2020&art=top&land_id=2&altersklasse=&ausrichtung=&spielerposition_id=&filter=0&yt0=Show
-# https://www.transfermarkt.com/scorer/topscorer/statistik/2020/plus/0/galerie/0?saison_id=2020&art=top10&land_id=2&altersklasse=&ausrichtung=&spielerposition_id=&filter=0&yt0=Show
-# startingYear = 2012===== art=profi
+#yw1 > table > tbody > tr:nth-child(1) > td:nth-child(2) > table > tbody > tr:nth-child(1) > td.hauptlink > a
+#yw1 > table > tbody > tr:nth-child(2) > td:nth-child(2) > table > tbody > tr:nth-child(1) > td.hauptlink > a
 
 # define variables
 name =[]
@@ -56,10 +55,13 @@ def collectAndWriteData():
     browser.maximize_window()
     for i in range(nOfYears):
         browser.get(f"https://www.transfermarkt.com/scorer/topscorer/statistik/2021/plus/0/galerie/0?saison_id={startingYear+i}&art={art}&land_id=2&altersklasse=&ausrichtung=&spielerposition_id=&filter=0&yt0=Show")
-        names = browser.find_elements(By.XPATH, '//*[@id="yw1"]/table/tbody/tr[*]/td[2]/table/tbody/tr[1]/td[2]/a')
-        pts   = browser.find_elements(By.XPATH, '//*[@id="yw1"]/table/tbody/tr[*]/td[9]')
-        goal  = browser.find_elements(By.XPATH, '//*[@id="yw1"]/table/tbody/tr[*]/td[7]')
-        assist= browser.find_elements(By.XPATH, '//*[@id="yw1"]/table/tbody/tr[*]/td[8]')
+        html = browser.page_source
+        soup = BeautifulSoup(html,"html.parser")
+
+        names = soup.select('#yw1 > table > tbody > tr > td:nth-child(2) > table > tbody > tr:nth-child(1) > td.hauptlink > a')
+        pts   = soup.select('#yw1 > table > tbody > tr > td.zentriert.hauptlink')
+        goal  = soup.select('#yw1 > table > tbody > tr > td:nth-child(7)')
+        assist= soup.select('#yw1 > table > tbody > tr > td:nth-child(8)')
         for i in range(len(names)):
             name.append(names[i].text)
             points.append(pts[i].text)
