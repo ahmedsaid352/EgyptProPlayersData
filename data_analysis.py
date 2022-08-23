@@ -1,3 +1,4 @@
+from tkinter import Grid
 import pandas as pd 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -29,7 +30,7 @@ def userInput():
 
 def show(char_kind):
     if char_kind=='pie':
-        table.plot(kind=f'{char_kind}',y='Total goals & assists')
+        table.plot(kind=f'{char_kind}',y='Total goals & assists', autopct='%1.1f%%')
         plt.title('Total goals & assists')
         plt.legend(bbox_to_anchor=(1.2, 1.1))
         plt.ylabel('')
