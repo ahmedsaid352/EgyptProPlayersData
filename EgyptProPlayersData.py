@@ -10,8 +10,6 @@ from selenium.webdriver.common.keys import Keys
 import time
 import pandas as pd
 from time import sleep
-#yw1 > table > tbody > tr:nth-child(1) > td:nth-child(2) > table > tbody > tr:nth-child(1) > td.hauptlink > a
-#yw1 > table > tbody > tr:nth-child(2) > td:nth-child(2) > table > tbody > tr:nth-child(1) > td.hauptlink > a
 
 # define variables
 name =[]
@@ -75,8 +73,8 @@ def collectAndWriteData():
         'Total goals & assists':points,
     }
     df = pd.DataFrame(information)
-    df.to_excel('EgyptProPlayers.xlsx',index=False)
+    df.to_excel('EgyptProPlayersV1.xlsx',index=False)
 # call user input
 user_input()
 # end message
-print("Done! \n Data collected (needs cleaning) in EgyptProPlayers.csv")
+print("Done! \n Data collected (needs cleaning) in EgyptProPlayersV1.csv")
