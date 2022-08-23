@@ -77,4 +77,4 @@ def collectAndWriteData():
 # call user input
 user_input()
 # end message
-print("Done! \n Data collected (needs cleaning) in EgyptProPlayersV1.csv")
+print("Done! \n Data collected (needs cleaning) in EgyptProPlayersV1.xlsx")

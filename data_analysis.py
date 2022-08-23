@@ -1,5 +1,3 @@
-from re import X
-from tkinter import Y
 import pandas as pd 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -9,8 +7,9 @@ table = pd.pivot_table(df, values=['goals','assist','Total goals & assists'], in
 accept =['yes','y','ya','yeb','ok']
 refuse = ['no','n']
 char_kinds=['pie','bar']
+table.to_excel('EgyptProPlayersV2.xlsx',index=False)
 
-print('\t data is cleaned successfully.\n\n')
+print('\t data is cleaned successfully, and saved in EgyptProPlayersV2.xlsx\n\n')
 
 def userInput():
     user_input = input('Do you want to see some charts? yes or no\n\n ').lower().strip()
@@ -29,9 +28,14 @@ def userInput():
         userInput()
 
 def show(char_kind):
-    table.plot(kind=f'{char_kind}',subplots=True)
+    if char_kind=='pie':
+        table.plot(kind=f'{char_kind}',y='Total goals & assists')
+        plt.title('Total goals & assists')
+        plt.legend(bbox_to_anchor=(1.2, 1.1))
+        plt.ylabel('')
+    else:
+        table.plot(kind=f'{char_kind}',subplots=True)
     plt.xlabel('Player')
-    plt.ylabel('Total goals & assists')
     plt.show()
     userInput()
 
